@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rainie's Retail English Lab</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1f6f5b" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --line: #e5e1d8;
+      --accent: #1f6f5b;
+      --accent-light: #e5f3ee;
+      --danger: #b45309;
+      --shadow: 0 12px 30px rgba(31, 41, 51, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 24px 18px 14px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    h1 { margin: 0; font-size: 27px; letter-spacing: -0.5px; }
+    .subtitle { margin-top: 8px; color: var(--muted); line-height: 1.6; }
+    .app {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 18px 36px;
+      display: grid;
+      grid-template-columns: 245px 1fr;
+      gap: 18px;
+    }
+    .sidebar, .main-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .sidebar { padding: 14px; height: fit-content; position: sticky; top: 14px; }
+    .tab {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 13px 14px;
+      text-align: left;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .tab.active { background: var(--accent-light); color: var(--accent); font-weight: 700; }
+    .stats {
+      margin-top: 14px;
+      padding: 13px;
+      background: #faf9f6;
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .main-card { padding: 20px; min-height: 620px; }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 20px; }
+    input {
+      flex: 1;
+      min-width: 210px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      font-size: 15px;
+    }
+    .small-btn, .speak-btn, .review-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      background: #f0eee8;
+      color: var(--text);
+    }
+    .primary { background: var(--accent); color: white; }
+    .section-title { margin: 0; font-size: 22px; }
+    .section-desc { color: var(--muted); margin: 8px 0 0; line-height: 1.6; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .word-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fffdfa;
+    }
+    .word-top { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+    .word { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--accent-light);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .cn { color: var(--danger); font-weight: 700; margin-bottom: 10px; }
+    .example { line-height: 1.55; color: #374151; margin-bottom: 10px; }
+    .note { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .review-btn.known { background: #e5f3ee; color: #1f6f5b; }
+    .review-btn.unknown { background: #fff3d6; color: #92400e; }
+    .empty {
+      padding: 40px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+    }
+    .install-tip {
+      background: #eef7f3;
+      border: 1px solid #cfe9df;
+      color: #1f6f5b;
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin: 0 0 16px;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    @media (max-width: 800px) {
+      .app { grid-template-columns: 1fr; padding: 0 12px 28px; }
+      header { padding: 22px 14px 12px; }
+      .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .tab { margin-bottom: 0; padding: 11px 10px; }
+      .stats { grid-column: 1 / -1; }
+      .main-card { padding: 16px; }
+      h1 { font-size: 24px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rainie's Retail English Lab</h1>
+    <div class="subtitle">专门为 Strategy One、Retail Design、商业会议和英文汇报定制。</div>
+  </header>
+
+  <div class="app">
+    <aside class="sidebar">
+      <button class="tab active" data-category="today">Today Learning</button>
+      <button class="tab" data-category="strategy">Strategy One</button>
+      <button class="tab" data-category="meeting">Meeting English</button>
+      <button class="tab" data-category="presentation">Presentation</button>
+      <button class="tab" data-category="smalltalk">Small Talk</button>
+      <button class="tab" data-category="review">Review List</button>
+      <div class="stats" id="stats"></div>
+    </aside>
+
+    <main class="main-card">
+      <div class="install-tip">手机打开网址后，可以点浏览器菜单，选择“添加到主屏幕”。之后它会像 App 一样出现在手机桌面。</div>
+      <h2 class="section-title" id="title">Today Learning</h2>
+      <p class="section-desc" id="desc">今天先学最适合你工作场景的高频词和句子。</p>
+
+      <div class="toolbar">
+        <input id="search" placeholder="Search words or sentences..." />
+        <button class="small-btn primary" onclick="speakAll()">朗读本页</button>
+        <button class="small-btn" onclick="clearReview()">清空复习</button>
+      </div>
+
+      <div class="grid" id="list"></div>
+    </main>
+  </div>
+
+  <script>
+    const data = [
+      {category:"strategy",word:"dwell time",cn:"顾客停留时间",example:"We want to increase dwell time in the emotional space.",note:"汇报时很有用，比 stay longer 更专业。"},
+      {category:"strategy",word:"hot zone",cn:"高热区 / 顾客更愿意停留或互动的区域",example:"Cycling trial is one of the strongest hot zones in the store.",note:"适合做顾客行为调研结论。"},
+      {category:"strategy",word:"cold zone",cn:"低热区 / 顾客容易忽略的区域",example:"The outdoor DP is visible, but it still works like a cold zone.",note:"你可以用它解释为什么现有DP需要升级。"},
+      {category:"strategy",word:"engagement",cn:"参与 / 互动",example:"This space should turn passive viewing into active engagement.",note:"Strategy One的核心词。"},
+      {category:"strategy",word:"emotional space",cn:"情绪空间",example:"Emotional space helps customers imagine a sport or lifestyle experience.",note:"重点是让顾客产生想象。"},
+      {category:"strategy",word:"efficiency space",cn:"效率空间",example:"Efficiency space helps customers compare products and make decisions quickly.",note:"用于鞋墙、衣服墙、配件墙。"},
+      {category:"strategy",word:"customer journey",cn:"顾客路径 / 顾客旅程",example:"We need to connect emotional, engagement, and efficiency spaces along the customer journey.",note:"用于解释整体店铺动线。"},
+      {category:"strategy",word:"benchmarking",cn:"对标调研",example:"We visited Nike, Adidas, Lululemon, and On for benchmarking.",note:"你经常用到。"},
+      {category:"strategy",word:"conversion",cn:"转化 / 成交",example:"Engagement should support conversion, not only create a nice experience.",note:"老板会关心的词。"},
+      {category:"strategy",word:"touchpoint",cn:"触点",example:"Each sport block should have at least one clear customer touchpoint.",note:"适合讲可复制设计原则。"},
+      {category:"meeting",word:"align",cn:"对齐 / 达成一致",example:"Can we align on the next step before Friday?",note:"比 discuss 更职场。"},
+      {category:"meeting",word:"next step",cn:"下一步",example:"The next step is to test this idea in one pilot store.",note:"汇报结尾很好用。"},
+      {category:"meeting",word:"make it clearer",cn:"把它讲得更清楚",example:"I updated the structure to make the logic clearer.",note:"适合说你优化了PPT逻辑。"},
+      {category:"meeting",word:"supporting data",cn:"支撑数据",example:"We need supporting data to explain why this zone should be improved.",note:"适合Strategy One调研。"},
+      {category:"meeting",word:"I suggest we...",cn:"我建议我们……",example:"I suggest we use soft decoration instead of fixed construction.",note:"比 We should 更柔和。"},
+      {category:"meeting",word:"from my point of view",cn:"从我的角度看",example:"From my point of view, the current DP is visible but not attractive enough.",note:"适合表达设计判断。"},
+      {category:"meeting",word:"Could you help me check...",cn:"可以麻烦你帮我确认……吗？",example:"Could you help me check if there is any traffic data for this zone?",note:"适合向陌生同事要数据。"},
+      {category:"presentation",word:"Today I'd like to share...",cn:"今天我想分享……",example:"Today I'd like to share the progress of Strategy One.",note:"简单自然的开场。"},
+      {category:"presentation",word:"The purpose of this design is...",cn:"这个设计的目的是……",example:"The purpose of this design is to make customers slow down and interact with products.",note:"适合解释设计目标。"},
+      {category:"presentation",word:"We observed that...",cn:"我们观察到……",example:"We observed that customers spend more time in trial areas than display-only areas.",note:"非常适合顾客行为调研页。"},
+      {category:"presentation",word:"This means that...",cn:"这意味着……",example:"This means that engagement space can create stronger customer attention.",note:"连接数据和结论。"},
+      {category:"presentation",word:"Based on this finding...",cn:"基于这个发现……",example:"Based on this finding, I suggest increasing the proportion of engagement space.",note:"适合从调研跳到方案。"},
+      {category:"presentation",word:"pilot store",cn:"试点门店",example:"We are ready to test the solution in a pilot store.",note:"复制法国方案和Strategy One都会用到。"},
+      {category:"presentation",word:"The key message is...",cn:"核心信息是……",example:"The key message is that each sport block needs a stronger reason to stop.",note:"适合讲一页PPT结论。"},
+      {category:"smalltalk",word:"How was your weekend?",cn:"你周末过得怎么样？",example:"How was your weekend? Did you do anything fun?",note:"最安全的small talk开场。"},
+      {category:"smalltalk",word:"That sounds nice.",cn:"听起来不错。",example:"That sounds nice. I’ve been wanting to try that too.",note:"别人分享后可以自然接话。"},
+      {category:"smalltalk",word:"I’m still working on my English.",cn:"我还在练英语。",example:"I’m still working on my English, so please let me know if I say something unclear.",note:"适合和外国同事轻松说明。"},
+      {category:"smalltalk",word:"I’ve been quite busy with store design projects.",cn:"我最近在忙门店设计项目。",example:"I’ve been quite busy with store design projects, but it’s interesting.",note:"适合介绍近况。"}
+    ];
+
+    const categoryInfo = {
+      today: ["Today Learning", "今天先学最适合你工作场景的高频词和句子。"],
+      strategy: ["Strategy One", "围绕 Emotional / Engagement / Efficiency 的项目词汇。"],
+      meeting: ["Meeting English", "会议里可以直接用的自然表达。"],
+      presentation: ["Presentation", "适合PPT汇报和项目更新的句子。"],
+      smalltalk: ["Small Talk", "和外国同事聊天时不尴尬的表达。"],
+      review: ["Review List", "你标记为“不会”的内容会出现在这里。"]
+    };
+
+    let currentCategory = "today";
+    let review = JSON.parse(localStorage.getItem("rainieReview") || "[]");
+
+    function getItems() {
+      const keyword = document.getElementById("search").value.toLowerCase().trim();
+      let items;
+      if (currentCategory === "today") items = data.slice(0, 10);
+      else if (currentCategory === "review") items = data.filter(item => review.includes(item.word));
+      else items = data.filter(item => item.category === currentCategory);
+      if (keyword) {
+        items = items.filter(item => item.word.toLowerCase().includes(keyword) || item.example.toLowerCase().includes(keyword) || item.cn.includes(keyword));
+      }
+      return items;
+    }
+
+    function render() {
+      const [title, desc] = categoryInfo[currentCategory];
+      document.getElementById("title").textContent = title;
+      document.getElementById("desc").textContent = desc;
+      const items = getItems();
+      const list = document.getElementById("list");
+      if (!items.length) {
+        list.innerHTML = '<div class="empty">这里暂时没有内容。你可以把不会的词加入复习，或者换一个分类。</div>';
+      } else {
+        list.innerHTML = items.map(item => `
+          <div class="word-card">
+            <div class="word-top">
+              <div>
+                <div class="word">${item.word}</div>
+                <span class="tag">${item.category}</span>
+              </div>
+              <button class="speak-btn" onclick="speak('${escapeText(item.word)}')">🔊</button>
+            </div>
+            <div class="cn">${item.cn}</div>
+            <div class="example">${item.example}</div>
+            <div class="note">${item.note}</div>
+            <div class="actions">
+              <button class="review-btn known" onclick="markKnown('${escapeText(item.word)}')">会了</button>
+              <button class="review-btn unknown" onclick="markUnknown('${escapeText(item.word)}')">不会，加入复习</button>
+              <button class="review-btn" onclick="speak('${escapeText(item.example)}')">朗读例句</button>
+            </div>
+          </div>
+        `).join("");
+      }
+      renderStats();
+    }
+
+    function escapeText(text) { return text.replace(/'/g, "\\'"); }
+
+    function speak(text) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      utterance.rate = 0.86;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakAll() {
+      const items = getItems();
+      const text = items.map(item => item.word + ". " + item.example).join(". ");
+      speak(text);
+    }
+
+    function markUnknown(word) {
+      if (!review.includes(word)) {
+        review.push(word);
+        localStorage.setItem("rainieReview", JSON.stringify(review));
+      }
+      render();
+    }
+
+    function markKnown(word) {
+      review = review.filter(item => item !== word);
+      localStorage.setItem("rainieReview", JSON.stringify(review));
+      render();
+    }
+
+    function clearReview() {
+      review = [];
+      localStorage.setItem("rainieReview", JSON.stringify(review));
+      render();
+    }
+
+    function renderStats() {
+      document.getElementById("stats").innerHTML = `<strong>学习进度</strong><br>总词句：${data.length}<br>复习中：${review.length}<br>当前分类：${categoryInfo[currentCategory][0]}`;
+    }
+
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentCategory = btn.dataset.category;
+        document.getElementById("search").value = "";
+        render();
+      });
+    });
+
+    document.getElementById("search").addEventListener("input", render);
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js");
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
