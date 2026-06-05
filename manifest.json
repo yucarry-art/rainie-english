@@ -1,11 +1,10 @@
 {
-  "name": "Rainie's Retail English Coach V3",
+  "name": "Rainie's Retail English Coach V3.2",
   "short_name": "Retail Coach",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f6f4ef",
   "theme_color": "#0f4f43",
-  "description": "180-day offline English coach for retail design, Strategy One, meetings and boss communication.",
   "icons": [
     {
       "src": "icon-192.png",
