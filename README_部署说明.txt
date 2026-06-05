@@ -31,3 +31,6 @@ V3功能：
 - Favorites
 - Growth Dashboard
 - PWA手机安装
+
+
+V3.1 Fixed: 修复部分浏览器不识别 main/stats 全局变量导致右侧空白的问题。

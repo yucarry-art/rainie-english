@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rainie's Retail English Coach V3</title>
+  <title>Rainie's Retail English Coach V3.1</title>
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0f4f43" />
   <link rel="apple-touch-icon" href="icon-192.png" />
@@ -75,7 +75,7 @@
 </head>
 <body>
 <header>
-  <h1>Rainie's Retail English Coach V3</h1>
+  <h1>Rainie's Retail English Coach V3.1</h1>
   <div class="sub">180天 · 离线免费 · 为 Strategy One、Retail Design、外国老板会议和 Small Talk 定制。</div>
 </header>
 <div class="app">
@@ -107,6 +107,8 @@ let listenAttempts = Number(localStorage.getItem("r_listen_attempts") || "0");
 let streak = Number(localStorage.getItem("r_streak") || "0");
 let lastDone = localStorage.getItem("r_last_done") || "";
 
+const mainEl = document.getElementById("main");
+const statsEl = document.getElementById("stats");
 function save(){
  localStorage.setItem("r_day",day); localStorage.setItem("r_review",JSON.stringify(review));
  localStorage.setItem("r_fav",JSON.stringify(fav)); localStorage.setItem("r_done",JSON.stringify(done));
@@ -138,7 +140,7 @@ function sentences(list){
 }
 function renderToday(){
  const x=d();
- main.innerHTML = top("Today", "今天30分钟：10分钟Drive Mode、10分钟Presentation、5分钟Boss Talk、5分钟Vocabulary。", true) +
+ mainEl.innerHTML = top("Today", "今天30分钟：10分钟Drive Mode、10分钟Presentation、5分钟Boss Talk、5分钟Vocabulary。", true) +
  `<section class="card"><h3>🎧 Drive Mode · 10 min</h3><div class="drive"><div class="bigicon">🚗</div><p class="muted">开车/通勤播放，不需要看屏幕。</p><button class="driveBtn" onclick="speak('${esc(x.audioScript)}',0.86)">Normal</button><button class="driveBtn" onclick="speak('${esc(x.audioScript)}',0.72)">Slow</button><button onclick="stopSpeak()">Stop</button></div></section>
  <section class="card"><h3>🎤 Presentation Gym · 10 min</h3><div class="sentence"><b>${x.weeklyPrompt.question}</b><textarea id="myAnswer" placeholder="先自己试着写/说一句，然后再看参考答案。"></textarea><div class="actions"><button onclick="document.getElementById('weeklyAns').classList.toggle('hidden')">Show Answers</button><button onclick="speak('${esc(x.weeklyPrompt.natural)}')">🔊 Natural Answer</button></div><div id="weeklyAns" class="answerBox hidden"><b>Good:</b> ${x.weeklyPrompt.good}<br><br><b>Better:</b> ${x.weeklyPrompt.better}<br><br><b>Natural:</b> ${x.weeklyPrompt.natural}</div></div></section>
  <section class="card"><h3>☕ Boss Talk · 5 min</h3><div class="sentence"><b>${x.bossTalk.scene}</b><br>${x.bossTalk.question}<br><span class="mini">${x.bossTalk.answer}</span><div class="actions"><button onclick="speak('${esc(x.bossTalk.question+' '+x.bossTalk.answer)}')">🔊</button><button onclick="toggle(fav,'${esc(x.bossTalk.question)}')">☆ 收藏</button></div></div></section>
@@ -147,18 +149,18 @@ function renderToday(){
 }
 function renderDrive(){
  const x=d();
- main.innerHTML = top("Drive Mode", "听今天完整音频：单词、会议、汇报、Weekly Update、Boss Talk、Listening Challenge。") +
+ mainEl.innerHTML = top("Drive Mode", "听今天完整音频：单词、会议、汇报、Weekly Update、Boss Talk、Listening Challenge。") +
  `<section class="card"><div class="drive"><div class="bigicon">🚗🎧</div><h3>Day ${x.day} Audio</h3><p class="muted">${x.phase}</p><button class="driveBtn" onclick="speak('${esc(x.audioScript)}',0.86)">Normal</button><button class="driveBtn" onclick="speak('${esc(x.audioScript)}',0.72)">Slow</button><button class="driveBtn" onclick="speak('${esc(x.audioScript)}',0.62)">Shadowing</button><button onclick="stopSpeak()">Stop</button></div></section><section class="card"><h3>Script</h3><div class="sentence">${x.audioScript.replaceAll("\n","<br>")}</div></section>`;
 }
 function renderGym(){
  const x=d();
- main.innerHTML = top("Presentation Gym", "先自己回答，再看 Good / Better / Natural 三种答案。") +
+ mainEl.innerHTML = top("Presentation Gym", "先自己回答，再看 Good / Better / Natural 三种答案。") +
  `<section class="card"><h3>Weekly Update Simulator</h3><div class="sentence"><b>${x.weeklyPrompt.question}</b><textarea placeholder="Write your answer here..."></textarea><div class="actions"><button onclick="document.getElementById('ans').classList.toggle('hidden')">Show Answers</button><button onclick="speak('${esc(x.weeklyPrompt.natural)}')">🔊 Natural</button></div><div id="ans" class="answerBox hidden"><b>Good:</b> ${x.weeklyPrompt.good}<br><br><b>Better:</b> ${x.weeklyPrompt.better}<br><br><b>Natural:</b> ${x.weeklyPrompt.natural}</div></div></section><section class="card"><h3>Presentation Sentence</h3>${sentences([x.presentation])}</section>`;
 }
 function renderBoss(){
  const x=d();
  let all = DATA.bossQuestions;
- main.innerHTML = top("Boss Talk", "和外国老板聊天，不需要复杂，但要自然、有回应。") +
+ mainEl.innerHTML = top("Boss Talk", "和外国老板聊天，不需要复杂，但要自然、有回应。") +
  `<section class="card"><h3>Today's Boss Talk</h3><div class="sentence"><b>${x.bossTalk.scene}</b><br>${x.bossTalk.question}<br><span class="mini">${x.bossTalk.answer}</span><div class="actions"><button onclick="speak('${esc(x.bossTalk.question+' '+x.bossTalk.answer)}')">🔊</button></div></div></section><section class="card"><h3>Boss Talk Library</h3>${all.concat(all, all, all, all, all, all).slice(0,100).map((q,i)=>`<div class="sentence"><b>${i+1}. ${q.scene}</b><br>${q.question}<br><span class="mini">${q.answer}</span><div class="actions"><button onclick="speak('${esc(q.question+' '+q.answer)}')">🔊</button><button onclick="toggle(fav,'${esc(q.question)}')">${fav.includes(q.question)?'★ 已收藏':'☆ 收藏'}</button></div></div>`).join("")}</section>`;
 }
 function similarity(a,b) {
@@ -172,37 +174,37 @@ function checkListening(){
 }
 function renderListen(){
  const x=d();
- main.innerHTML = top("Listening Challenge", "播放一句真实工作英语，听写，然后看相似度分数。") +
+ mainEl.innerHTML = top("Listening Challenge", "播放一句真实工作英语，听写，然后看相似度分数。") +
  `<section class="card"><h3>Day ${x.day} Listening</h3><button class="primary" onclick="speak('${esc(x.listeningChallenge.audio)}',0.86)">▶ Play</button> <button onclick="speak('${esc(x.listeningChallenge.audio)}',0.72)">Slow</button><textarea id="dictation" placeholder="Type what you heard..."></textarea><div class="actions"><button onclick="checkListening()">Check</button></div><div id="listenResult" class="answerBox"></div></section>`;
 }
 function renderVocab(){
  const all=DAYS.flatMap(x=>x.vocabulary);
- main.innerHTML = top("Vocabulary", "180天核心词库，全部来自 Retail Design / Strategy One / 会议汇报。") + `<section class="card"><input class="searchbar" id="search" placeholder="Search..." oninput="filterVocab()"><div id="vocwrap">${vocabCards(all)}</div></section>`;
+ mainEl.innerHTML = top("Vocabulary", "180天核心词库，全部来自 Retail Design / Strategy One / 会议汇报。") + `<section class="card"><input class="searchbar" id="search" placeholder="Search..." oninput="filterVocab()"><div id="vocwrap">${vocabCards(all)}</div></section>`;
 }
 function filterVocab(){
  const kw=document.getElementById("search").value.toLowerCase(); const all=DAYS.flatMap(x=>x.vocabulary).filter(v=>v.word.toLowerCase().includes(kw)||v.cn.includes(kw)||v.example.toLowerCase().includes(kw));
  document.getElementById("vocwrap").innerHTML=vocabCards(all);
 }
 function renderAcademy(){
- main.innerHTML = top("Strategy One Academy", "把项目逻辑变成英文表达。") +
+ mainEl.innerHTML = top("Strategy One Academy", "把项目逻辑变成英文表达。") +
  `<section class="card"><div class="grid">${DATA.strategyAcademy.map(a=>`<div class="item"><div class="word">${a.topic}</div><div class="cn">${a.cn}</div><div class="example">${a.explain}</div><div class="actions"><button onclick="speak('${esc(a.explain)}')">🔊</button><button onclick="toggle(fav,'${esc(a.topic)}')">☆ 收藏</button></div></div>`).join("")}</div></section>`;
 }
 function renderReview(){
  const all=DAYS.flatMap(x=>x.vocabulary).filter(v=>review.includes(v.word));
- main.innerHTML = top("Review", "你标记不会的词会出现在这里。") + `<section class="card">${all.length?vocabCards(all):'<div class="empty">暂无复习内容。</div>'}</section>`;
+ mainEl.innerHTML = top("Review", "你标记不会的词会出现在这里。") + `<section class="card">${all.length?vocabCards(all):'<div class="empty">暂无复习内容。</div>'}</section>`;
 }
 function renderFav(){
  const allVoc=DAYS.flatMap(x=>x.vocabulary).filter(v=>fav.includes(v.word));
  const allSent=DAYS.flatMap(x=>[...x.meeting,x.presentation,x.weeklyPrompt.natural,x.bossTalk.question]).filter(s=>fav.includes(s));
- main.innerHTML = top("Favorites", "开会前快速复习收藏内容。") + `<section class="card"><h3>Words</h3>${allVoc.length?vocabCards(allVoc):'<div class="empty">暂无收藏词。</div>'}</section><section class="card"><h3>Sentences</h3>${allSent.length?sentences(allSent):'<div class="empty">暂无收藏句子。</div>'}</section>`;
+ mainEl.innerHTML = top("Favorites", "开会前快速复习收藏内容。") + `<section class="card"><h3>Words</h3>${allVoc.length?vocabCards(allVoc):'<div class="empty">暂无收藏词。</div>'}</section><section class="card"><h3>Sentences</h3>${allSent.length?sentences(allSent):'<div class="empty">暂无收藏句子。</div>'}</section>`;
 }
 function renderDashboard(){
  const completion=Math.round(done.length/180*100), avg=listenAttempts?Math.round(listenScore/listenAttempts):0;
- main.innerHTML = top("Growth Dashboard", "看你的学习进度、听力分数和连续学习天数。") +
+ mainEl.innerHTML = top("Growth Dashboard", "看你的学习进度、听力分数和连续学习天数。") +
  `<section class="card"><div class="dashboard"><div class="metric"><b>${done.length}</b><br>Completed days<div class="levelbar"><span style="width:${completion}%"></span></div></div><div class="metric"><b>${streak}</b><br>Day streak<div class="levelbar"><span style="width:${Math.min(streak,30)/30*100}%"></span></div></div><div class="metric"><b>${avg}%</b><br>Listening avg<div class="levelbar"><span style="width:${avg}%"></span></div></div><div class="metric"><b>${fav.length}</b><br>Favorites<div class="levelbar"><span style="width:${Math.min(fav.length,50)/50*100}%"></span></div></div></div></section><section class="card"><h3>Current Focus</h3><p class="muted">你的核心路径是：先听懂会议，再练 Weekly Update，最后提高 Boss Small Talk 自然度。</p></section>`;
 }
 function renderStats(){
- stats.innerHTML=`<b>Rainie Coach</b><br>Day: ${day} / 180<br>Completed: ${done.length}<br>Streak: 🔥 ${streak}<br>Review: ${review.length}<br>Favorites: ${fav.length}`;
+ statsEl.innerHTML=`<b>Rainie Coach</b><br>Day: ${day} / 180<br>Completed: ${done.length}<br>Streak: 🔥 ${streak}<br>Review: ${review.length}<br>Favorites: ${fav.length}`;
 }
 function render(){
  if(view==="today") renderToday();
