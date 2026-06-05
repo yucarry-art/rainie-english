@@ -1,1 +1,1 @@
-V3.3 Clear Voice 版：上传覆盖 index.html, manifest.json, service-worker.js, icon-192.png, icon-512.png。部署后 Ctrl+F5 强制刷新。手机需要删除旧桌面图标后重新添加。
+V4部署：上传覆盖 index.html, manifest.json, service-worker.js, icon-192.png, icon-512.png。GitHub Pages等待1-3分钟，电脑Ctrl+F5强刷，手机删除旧图标后重新添加。
