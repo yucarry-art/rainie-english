@@ -1,1 +1,1 @@
-上传覆盖 index.html, manifest.json, service-worker.js, icon-192.png, icon-512.png。然后 Ctrl+F5 强制刷新。
+V3.3 Clear Voice 版：上传覆盖 index.html, manifest.json, service-worker.js, icon-192.png, icon-512.png。部署后 Ctrl+F5 强制刷新。手机需要删除旧桌面图标后重新添加。
