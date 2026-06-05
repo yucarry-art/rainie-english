@@ -3,18 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rainie's Retail English Coach V4</title>
+<title>Rainie's Personal English System V5</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f4f43">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{--bg:#f6f4ef;--card:#fff;--ink:#102033;--muted:#667085;--line:#e5ded3;--green:#0f4f43;--soft:#e6f2ee;--orange:#b45309;--dark:#10231e;--shadow:0 14px 36px rgba(31,41,51,.08);--blue:#163f5c}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Microsoft YaHei",sans-serif;color:var(--ink)}header{max-width:1240px;margin:auto;padding:22px 18px 10px}h1{margin:0;font-size:29px}.sub{color:var(--muted);margin-top:8px;line-height:1.6}.app{max-width:1240px;margin:auto;padding:0 18px 40px;display:grid;grid-template-columns:260px 1fr;gap:18px}aside,.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}aside{padding:14px;height:fit-content;position:sticky;top:14px}.tab{display:block;width:100%;border:0;background:transparent;text-align:left;padding:12px;border-radius:13px;font-size:15px;margin-bottom:6px;cursor:pointer;color:var(--ink)}.tab.active{background:var(--soft);color:var(--green);font-weight:900}.stats{margin-top:12px;padding:13px;background:#faf9f6;border-radius:14px;color:var(--muted);font-size:14px;line-height:1.8}.card{padding:18px;margin-bottom:16px}.hero{background:linear-gradient(135deg,#0f4f43,#163f5c);color:white}.hero .muted,.hero .mini{color:#d8ebe5}h2{margin:0;font-size:25px}h3{margin:0 0 12px;font-size:18px}.muted{color:var(--muted);line-height:1.55}.mini{font-size:13px;color:var(--muted)}.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}select,textarea,input{border:1px solid var(--line);border-radius:13px;padding:11px 12px;background:#fff;font-size:14px}textarea{width:100%;min-height:90px;margin-top:10px}button{border:0;border-radius:13px;padding:10px 12px;background:#f0eee8;color:var(--ink);cursor:pointer;font-size:14px}button.primary{background:var(--green);color:white;font-weight:800}button.warn{background:#fff7df;color:#92400e}.pill{display:inline-block;background:var(--soft);color:var(--green);padding:7px 10px;border-radius:999px;font-size:13px;font-weight:900;margin-bottom:8px}.progress{height:10px;background:#ece7dc;border-radius:99px;overflow:hidden;margin-top:14px}.bar{height:100%;background:#4fb28f}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.dailygrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.item,.sentence{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fffdfa;margin-bottom:10px}.moduleCard{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fffdfa}.word{font-size:19px;font-weight:900}.cn{color:var(--orange);font-weight:800;margin:8px 0}.example{line-height:1.55;color:#374151}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.drive{background:#10231e;color:white;border-radius:24px;padding:24px;text-align:center}.drive .muted{color:#cfe5dc}.driveBtn{font-size:18px;border-radius:999px;background:white;color:#10231e;font-weight:900;padding:13px 20px;margin:8px}.bigicon{font-size:42px;margin-bottom:8px}.answerBox{background:#eef7f3;border:1px solid #cfe9df;border-radius:14px;padding:13px;margin-top:10px;line-height:1.6}.hidden{display:none}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{background:#fffdfa;border:1px solid var(--line);border-radius:16px;padding:14px}.metric b{font-size:22px}.levelbar{height:8px;background:#eee9df;border-radius:99px;overflow:hidden;margin-top:8px}.levelbar span{display:block;height:100%;background:var(--green)}.searchbar{width:100%;margin-bottom:12px}.voicePanel{display:grid;grid-template-columns:1fr 130px 130px;gap:10px;margin-top:12px}.voicePanel label{font-size:13px;color:var(--muted);display:block;margin-bottom:5px}.voicePanel select{width:100%}.moduleTag{font-size:12px;color:var(--green);font-weight:800;background:var(--soft);border-radius:99px;padding:5px 8px;display:inline-block;margin-bottom:8px}
+.clickable-word{cursor:pointer;border-bottom:1px dotted rgba(15,79,67,.45);padding:0 1px;border-radius:3px}
+.clickable-word:hover{background:var(--soft);color:var(--green)}
+.modalMask{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:99;display:flex;align-items:center;justify-content:center;padding:18px}
+.wordModal{max-width:440px;width:100%;background:#fff;border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.22);padding:20px;border:1px solid var(--line)}
+.wordModal h2{margin:0 0 8px;font-size:28px}
+.wordMeta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.wordMeta span{background:var(--soft);color:var(--green);font-weight:800;border-radius:999px;padding:6px 9px;font-size:12px}
+.modalRow{margin:12px 0;line-height:1.6}
+.modalClose{float:right;background:#f0eee8}
+.dictToolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.dictToolbar input,.dictToolbar select{min-width:180px;flex:1}
+.dictCard{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fffdfa;margin-bottom:10px}
+.dictGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.categoryPill{display:inline-block;background:var(--soft);color:var(--green);font-weight:800;border-radius:999px;padding:5px 8px;font-size:12px;margin-bottom:8px}
+
 @media(max-width:900px){header{padding:18px 12px 8px}.app{grid-template-columns:1fr;padding:0 12px 86px}aside{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:20;border-radius:18px 18px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px;max-height:180px;overflow:auto}.tab{font-size:12px;margin:0;padding:9px 6px;text-align:center}.stats{display:none}.grid,.dailygrid,.dashboard,.voicePanel{grid-template-columns:1fr}h1{font-size:23px}.card{padding:15px}.driveBtn{display:block;width:100%;margin:8px 0}}
 </style>
 </head>
 <body>
-<header><h1>Rainie's Retail English Coach V4</h1><div class="sub">180天 · 每个模块独立成长 · Vocabulary / Meeting / Presentation / Small Talk / Strategy Academy / Drive Mode。</div></header>
+<header><h1>Rainie's Personal English System V5</h1><div class="sub">180天课程 + Personal Dictionary · 点击任意单词收藏 · 离线免费 · Drive Mode 保留。</div></header>
 <div class="app">
 <aside>
 <button class="tab active" onclick="setView('today',this)">Today</button>
@@ -27,6 +42,7 @@
 <button class="tab" onclick="setView('listen',this)">Listening</button>
 <button class="tab" onclick="setView('review',this)">Review</button>
 <button class="tab" onclick="setView('fav',this)">Favorites</button>
+<button class="tab" onclick="setView('dictionary',this)">Dictionary</button>
 <button class="tab" onclick="setView('dashboard',this)">Dashboard</button>
 <div class="stats" id="stats">Loading...</div>
 </aside>
@@ -58,29 +74,170 @@ function speak(t,rate){speechSynthesis.cancel();var parts=splitSpeech(t);var i=0
 function stopSpeak(){speechSynthesis.cancel();}
 function setVoice(n){selectedVoiceName=n;save();}function setRate(r){selectedRate=Number(r);save();}function setPause(p){selectedPause=Number(p);save();}
 function voicePanel(){loadVoices();var opts=voices.map(function(v){return '<option value="'+escapeHtml(v.name)+'" '+(v.name===selectedVoiceName?'selected':'')+'>'+escapeHtml(v.name)+' · '+escapeHtml(v.lang)+'</option>';}).join('')||'<option>No English voice found</option>';return '<div class="voicePanel"><div><label>Voice</label><select onchange="setVoice(this.value)">'+opts+'</select></div><div><label>Speed</label><select onchange="setRate(this.value)"><option value="0.68" '+(selectedRate===0.68?'selected':'')+'>Slow</option><option value="0.82" '+(selectedRate===0.82?'selected':'')+'>Clear</option><option value="0.95" '+(selectedRate===0.95?'selected':'')+'>Normal</option></select></div><div><label>Pause</label><select onchange="setPause(this.value)"><option value="300" '+(selectedPause===300?'selected':'')+'>Short</option><option value="550" '+(selectedPause===550?'selected':'')+'>Natural</option><option value="850" '+(selectedPause===850?'selected':'')+'>Long</option></select></div></div>';}
+
+/* ===== RPES V5 Personal Dictionary Engine ===== */
+var DICT_KEY='rpes_v5_dictionary';
+var PERSONAL_DICT=JSON.parse(localStorage.getItem(DICT_KEY)||'[]');
+
+var BUILTIN_DICT={
+  "align":{cn:"对齐 / 达成一致",pos:"verb",collocations:["align on","align with"],example:"Can we align on the objective first?",category:"Meeting"},
+  "objective":{cn:"目标",pos:"noun",collocations:["main objective","project objective"],example:"The objective is to make customers stop and interact with products.",category:"Presentation"},
+  "clarify":{cn:"澄清 / 说明清楚",pos:"verb",collocations:["clarify the requirement","clarify one point"],example:"Could you clarify the requirement?",category:"Meeting"},
+  "requirement":{cn:"需求 / 要求",pos:"noun",collocations:["project requirement","safety requirement"],example:"We need to clarify the key requirement.",category:"Meeting"},
+  "supporting":{cn:"支撑的 / 支持的",pos:"adjective",collocations:["supporting data","supporting evidence"],example:"We need supporting data to explain this direction.",category:"Meeting"},
+  "data":{cn:"数据",pos:"noun",collocations:["customer data","supporting data"],example:"Do we have any data to support this direction?",category:"Meeting"},
+  "follow":{cn:"跟进",pos:"verb",collocations:["follow up","follow up with"],example:"I will follow up after the meeting.",category:"Meeting"},
+  "meeting":{cn:"会议",pos:"noun",collocations:["weekly meeting","project meeting"],example:"I have a few meetings this week.",category:"Meeting"},
+  "message":{cn:"信息 / 核心表达",pos:"noun",collocations:["key message","clear message"],example:"Let’s focus on the key message.",category:"Presentation"},
+  "priority":{cn:"优先级",pos:"noun",collocations:["main priority","project priority"],example:"Our priority is to make the customer journey clearer.",category:"Meeting"},
+  "timeline":{cn:"时间线",pos:"noun",collocations:["confirm the timeline","project timeline"],example:"We need to confirm the timeline before implementation.",category:"Meeting"},
+  "implementation":{cn:"落地执行",pos:"noun",collocations:["simple implementation","implementation plan"],example:"The implementation should be simple and easy to replicate.",category:"Retail Design"},
+  "customer":{cn:"顾客",pos:"noun",collocations:["customer journey","customer behavior"],example:"The design should respond to customer behavior.",category:"Retail Design"},
+  "journey":{cn:"路径 / 旅程",pos:"noun",collocations:["customer journey"],example:"The customer journey should feel smoother from display to trial.",category:"Retail Design"},
+  "touchpoint":{cn:"触点",pos:"noun",collocations:["customer touchpoint","engagement touchpoint"],example:"Each sport block needs one clear customer touchpoint.",category:"Strategy"},
+  "conversion":{cn:"转化 / 成交",pos:"noun",collocations:["conversion rate","support conversion"],example:"Engagement should support conversion.",category:"Retail Design"},
+  "engagement":{cn:"参与 / 互动",pos:"noun",collocations:["customer engagement","engagement space"],example:"This area should turn passive viewing into active engagement.",category:"Strategy"},
+  "emotional":{cn:"情绪的",pos:"adjective",collocations:["emotional space","emotional trigger"],example:"Emotional space helps customers imagine a sport experience.",category:"Strategy"},
+  "efficiency":{cn:"效率",pos:"noun",collocations:["efficiency space"],example:"Efficiency space helps customers compare products quickly.",category:"Strategy"},
+  "benchmarking":{cn:"对标调研",pos:"noun",collocations:["benchmarking visit","benchmarking findings"],example:"We visited several stores for benchmarking.",category:"Retail Design"},
+  "insight":{cn:"洞察",pos:"noun",collocations:["key insight","customer insight"],example:"The key insight is that customers stop when they can try something.",category:"Presentation"},
+  "recommendation":{cn:"建议",pos:"noun",collocations:["my recommendation","design recommendation"],example:"My recommendation is to increase the proportion of engagement space.",category:"Presentation"},
+  "pilot":{cn:"试点",pos:"noun/adjective",collocations:["pilot store","pilot area"],example:"We are ready to test the solution in a pilot store.",category:"Retail Design"},
+  "store":{cn:"门店",pos:"noun",collocations:["pilot store","store team"],example:"The next step is to test this idea with store teams.",category:"Retail Design"},
+  "flexible":{cn:"灵活的",pos:"adjective",collocations:["flexible solution","flexible fixture"],example:"The fixture should be flexible enough for seasonal changes.",category:"Retail Design"},
+  "replicable":{cn:"可复制的",pos:"adjective",collocations:["replicable solution"],example:"The solution needs to be replicable across different sport blocks.",category:"Retail Design"},
+  "visual":{cn:"视觉的",pos:"adjective",collocations:["visual impact","visual anchor"],example:"The current display needs stronger visual impact.",category:"Retail Design"},
+  "impact":{cn:"影响力 / 冲击力",pos:"noun",collocations:["visual impact","high impact"],example:"The goal is to create high impact with simple elements.",category:"Retail Design"},
+  "weekend":{cn:"周末",pos:"noun",collocations:["this weekend","last weekend"],example:"How was your weekend?",category:"Small Talk"},
+  "family":{cn:"家人",pos:"noun",collocations:["my family","spend time with family"],example:"I spent most of the weekend with my family.",category:"Small Talk"},
+  "holiday":{cn:"假期",pos:"noun",collocations:["holiday plan","good holiday"],example:"Do you have any plans for the holiday?",category:"Small Talk"},
+  "daughter":{cn:"女儿",pos:"noun",collocations:["my daughter"],example:"My daughter is doing well, thank you.",category:"Small Talk"},
+  "busy":{cn:"忙碌的",pos:"adjective",collocations:["busy week","quite busy"],example:"It has been a busy but productive week.",category:"Small Talk"},
+  "productive":{cn:"高效的",pos:"adjective",collocations:["productive week","productive meeting"],example:"This week has been quite productive.",category:"Small Talk"}
+};
+
+var CATEGORY_HINTS={
+  "Meeting":["align","clarify","requirement","follow","meeting","priority","timeline","data","supporting","objective"],
+  "Presentation":["message","insight","recommendation","progress","update","explain","direction","natural"],
+  "Retail Design":["customer","journey","conversion","store","pilot","visual","impact","fixture","display","implementation","flexible","replicable"],
+  "Strategy":["engagement","emotional","efficiency","touchpoint","strategy","benchmarking","zone","behavior","trigger"],
+  "Small Talk":["weekend","family","holiday","daughter","busy","productive","travel","weather","lunch","coffee"]
+};
+
+function normalizeWord(w){return String(w||'').toLowerCase().replace(/[^a-z-]/g,'').trim();}
+function guessCategory(w){
+  var word=normalizeWord(w);
+  for(var cat in CATEGORY_HINTS){if(CATEGORY_HINTS[cat].some(function(h){return word.indexOf(h)>=0||h.indexOf(word)>=0;}))return cat;}
+  return "General";
+}
+function getWordInfo(w,context){
+  var word=normalizeWord(w);
+  var base=BUILTIN_DICT[word]||{};
+  return {
+    word:word,
+    cn:base.cn||"待补充释义",
+    pos:base.pos||"word",
+    collocations:base.collocations||[],
+    example:base.example||context||("I want to learn the word "+word+"."),
+    category:base.category||guessCategory(word),
+    addedAt:new Date().toISOString(),
+    reviewLevel:0,
+    nextReview:new Date().toISOString()
+  };
+}
+function saveDictionary(){
+  localStorage.setItem(DICT_KEY,JSON.stringify(PERSONAL_DICT));
+}
+function addToDictionary(info){
+  if(!info||!info.word)return;
+  var idx=PERSONAL_DICT.findIndex(function(x){return x.word===info.word;});
+  if(idx>=0){PERSONAL_DICT[idx]=Object.assign(PERSONAL_DICT[idx],info);}
+  else PERSONAL_DICT.push(info);
+  saveDictionary();
+  renderStats();
+}
+function removeFromDictionary(word){
+  PERSONAL_DICT=PERSONAL_DICT.filter(function(x){return x.word!==word;});
+  saveDictionary();render();
+}
+function isInDictionary(word){word=normalizeWord(word);return PERSONAL_DICT.some(function(x){return x.word===word;});}
+function wrapClickableWords(text){
+  return escapeHtml(text).replace(/\b[A-Za-z][A-Za-z-]{2,}\b/g,function(m){
+    return '<span class="clickable-word" onclick="openWordModal(\''+jsStr(m)+'\',\''+jsStr(text)+'\')">'+m+'</span>';
+  });
+}
+function openWordModal(word,context){
+  var info=getWordInfo(word,context);
+  var saved=isInDictionary(info.word);
+  var html='<div class="modalMask" onclick="closeWordModal(event)"><div class="wordModal" onclick="event.stopPropagation()"><button class="modalClose" onclick="closeWordModal()">×</button><h2>'+escapeHtml(info.word)+'</h2><div class="wordMeta"><span>'+escapeHtml(info.category)+'</span><span>'+escapeHtml(info.pos)+'</span></div><div class="modalRow"><b>中文：</b>'+escapeHtml(info.cn)+'</div><div class="modalRow"><b>常见搭配：</b>'+(info.collocations.length?info.collocations.map(escapeHtml).join(' / '):'待补充')+'</div><div class="modalRow"><b>例句：</b><br>'+wrapClickableWords(info.example)+'</div><div class="actions"><button onclick="speak(\''+jsStr(info.word)+'\')">🔊 Word</button><button onclick="speak(\''+jsStr(info.example)+'\')">🔊 Example</button><button class="primary" onclick="addToDictionary(getWordInfo(\''+jsStr(info.word)+'\',\''+jsStr(info.example)+'\'));closeWordModal();">'+(saved?'已收藏，更新':'收藏到词库')+'</button></div></div></div>';
+  var old=document.getElementById('wordModalRoot'); if(old) old.remove();
+  var div=document.createElement('div'); div.id='wordModalRoot'; div.innerHTML=html; document.body.appendChild(div);
+}
+function closeWordModal(e){
+  if(e&&e.target&&e.target.className!=='modalMask')return;
+  var root=document.getElementById('wordModalRoot'); if(root) root.remove();
+}
+function dictionaryCards(items){
+  if(!items.length)return '<div class="empty">还没有收藏词。你可以点击任意例句里的英文单词，把它加入 My Dictionary。</div>';
+  var h='<div class="dictGrid">';
+  items.forEach(function(v){
+    h+='<div class="dictCard"><span class="categoryPill">'+escapeHtml(v.category)+'</span><div class="word">'+escapeHtml(v.word)+'</div><div class="cn">'+escapeHtml(v.cn)+'</div><div class="mini">词性：'+escapeHtml(v.pos)+'</div><div class="example">'+wrapClickableWords(v.example||'')+'</div><div class="actions"><button onclick="speak(\''+jsStr(v.word)+'\')">🔊 Word</button><button onclick="speak(\''+jsStr(v.example||v.word)+'\')">🔊 Example</button><button class="warn" onclick="removeFromDictionary(\''+jsStr(v.word)+'\')">移出</button></div></div>';
+  });
+  return h+'</div>';
+}
+function renderDictionary(){
+  var cats=["All","Meeting","Presentation","Retail Design","Strategy","Small Talk","General"];
+  var h=topHtml('My Dictionary','点击任意例句中的英文单词，可收藏到这里。数据保存在浏览器本地，离线免费。',false);
+  h+='<section class="card"><div class="dictToolbar"><input id="dictSearch" placeholder="Search your words..." oninput="updateDictionaryList()"><select id="dictCat" onchange="updateDictionaryList()">'+cats.map(function(c){return '<option>'+c+'</option>';}).join('')+'</select><button class="primary" onclick="playDictionary()">▶ Play All</button></div><div id="dictList">'+dictionaryCards(PERSONAL_DICT)+'</div></section>';
+  document.getElementById('main').innerHTML=h;
+}
+function updateDictionaryList(){
+  var kw=(document.getElementById('dictSearch')||{}).value||'';
+  kw=kw.toLowerCase();
+  var cat=(document.getElementById('dictCat')||{}).value||'All';
+  var list=PERSONAL_DICT.filter(function(v){
+    var okCat=cat==='All'||v.category===cat;
+    var okKw=!kw||v.word.toLowerCase().includes(kw)||String(v.cn).includes(kw)||String(v.example).toLowerCase().includes(kw);
+    return okCat&&okKw;
+  });
+  document.getElementById('dictList').innerHTML=dictionaryCards(list);
+}
+function playDictionary(){
+  var text=PERSONAL_DICT.map(function(v){return v.word+'. '+v.example;}).join('. ');
+  if(text)speak(text); else speak('Your dictionary is empty.');
+}
+function enhanceClickableContent(){
+  document.querySelectorAll('.example,.sentence,.answerBox').forEach(function(el){
+    if(el.dataset.clickableDone)return;
+    if(el.querySelector('button, textarea, input, select'))return;
+    el.innerHTML=wrapClickableWords(el.textContent);
+    el.dataset.clickableDone='1';
+  });
+}
+
 function toggleReview(w){var i=review.indexOf(w);if(i>=0)review.splice(i,1);else review.push(w);save();render();}
 function toggleFav(w){var i=fav.indexOf(w);if(i>=0)fav.splice(i,1);else fav.push(w);save();render();}
 function setView(v,btn){view=v;document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');render();window.scrollTo(0,0);}
 function selectDayHtml(){var h='<select onchange="day=Number(this.value);save();render()">';DAYS.forEach(function(x){h+='<option value="'+x.day+'" '+(x.day===day?'selected':'')+'>Day '+x.day+'</option>';});return h+'</select>';}
 function topHtml(title,desc,hero){var x=cur();var pct=Math.round(day/180*100);return '<section class="card '+(hero?'hero':'')+'"><div class="top"><div><span class="pill">'+x.phase+'</span><h2>'+title+'</h2><p class="muted">'+desc+'</p></div><div>'+selectDayHtml()+'</div></div><div class="progress"><div class="bar" style="width:'+pct+'%"></div></div><p class="mini">Day '+day+' / 180 · '+x.goal+'</p></section>';}
 function vocabCards(items,moduleName){var h='<div class="grid">';items.forEach(function(v){var key=(moduleName||'')+':'+v.word;h+='<div class="item"><span class="moduleTag">'+(moduleName||'Word')+'</span><div class="word">'+escapeHtml(v.word)+'</div><button onclick="speak(\''+jsStr(v.word)+'\')">🔊 word</button><div class="cn">'+escapeHtml(v.cn)+'</div><div class="example">'+escapeHtml(v.example)+'</div><div class="actions"><button class="warn" onclick="toggleReview(\''+jsStr(key)+'\')">'+(review.indexOf(key)>=0?'移出复习':'不会，复习')+'</button><button onclick="toggleFav(\''+jsStr(key)+'\')">'+(fav.indexOf(key)>=0?'★ 已收藏':'☆ 收藏')+'</button><button onclick="speak(\''+jsStr(v.example)+'\',0.72)">慢速例句</button></div></div>';});return h+'</div>';}
-function sentenceList(list,moduleName){var h='';list.forEach(function(s){var key=(moduleName||'Sentence')+':'+s;h+='<div class="sentence"><span class="moduleTag">'+(moduleName||'Sentence')+'</span><br>'+escapeHtml(s)+'<div class="actions"><button onclick="speak(\''+jsStr(s)+'\')">🔊</button><button onclick="speak(\''+jsStr(s)+'\',0.72)">慢速</button><button onclick="toggleFav(\''+jsStr(key)+'\')">'+(fav.indexOf(key)>=0?'★ 已收藏':'☆ 收藏')+'</button></div></div>';});return h;}
+function sentenceList(list,moduleName){var h='';list.forEach(function(s){var key=(moduleName||'Sentence')+':'+s;h+='<div class="sentence"><span class="moduleTag">'+(moduleName||'Sentence')+'</span><br>'+wrapClickableWords(s)+'<div class="actions"><button onclick="speak(\''+jsStr(s)+'\')">🔊</button><button onclick="speak(\''+jsStr(s)+'\',0.72)">慢速</button><button onclick="toggleFav(\''+jsStr(key)+'\')">'+(fav.indexOf(key)>=0?'★ 已收藏':'☆ 收藏')+'</button></div></div>';});return h;}
 function renderToday(){var x=cur();document.getElementById('main').innerHTML=topHtml('Today Learning','每天6个模块独立更新：核心词、会议、汇报、Small Talk、Strategy Academy、Listening。Drive Mode自动串联当天内容。',true)+'<section class="card"><h3>🚗 Drive Mode</h3><div class="drive"><div class="bigicon">🚗</div><p class="muted">把今天所有模块串成一段通勤听力。</p><button class="driveBtn" onclick="speak(\''+jsStr(x.driveScript)+'\',selectedRate)">Play</button><button class="driveBtn" onclick="speak(\''+jsStr(x.driveScript)+'\',0.68)">Slow</button><button onclick="stopSpeak()">Stop</button></div>'+voicePanel()+'</section><div class="dailygrid"><section class="moduleCard"><span class="moduleTag">Vocabulary</span><h3>5 work words</h3>'+vocabCards(x.workVocab,'Work')+'</section><section class="moduleCard"><span class="moduleTag">Meeting</span><h3>5 meeting expressions</h3>'+sentenceList(x.meeting,'Meeting')+'</section><section class="moduleCard"><span class="moduleTag">Presentation</span><h3>1 full answer</h3><div class="sentence"><b>'+escapeHtml(x.presentation.question)+'</b><textarea placeholder="先自己写/说一句，再看答案。"></textarea><div class="actions"><button onclick="document.getElementById(\'pans\').classList.toggle(\'hidden\')">Show answers</button><button onclick="speak(\''+jsStr(x.presentation.natural)+'\')">🔊 Natural</button></div><div id="pans" class="answerBox hidden"><b>Good:</b> '+escapeHtml(x.presentation.good)+'<br><br><b>Better:</b> '+escapeHtml(x.presentation.better)+'<br><br><b>Natural:</b> '+escapeHtml(x.presentation.natural)+'</div></div></section><section class="moduleCard"><span class="moduleTag">Small Talk</span><h3>5 words + 3 Q&A</h3>'+vocabCards(x.smallTalk.vocab,'Small Talk')+sentenceList(x.smallTalk.qas.map(function(q){return q.q+' — '+q.a;}),'Small Talk')+'</section><section class="moduleCard"><span class="moduleTag">Strategy</span><h3>5 terms + 1 knowledge point</h3>'+vocabCards(x.strategy.vocab,'Strategy')+'<div class="sentence"><b>'+escapeHtml(x.strategy.knowledge.title)+'</b><br>'+escapeHtml(x.strategy.knowledge.text)+'</div>'+sentenceList(x.strategy.expressions,'Strategy')+'</section><section class="moduleCard"><span class="moduleTag">Listening</span><h3>'+escapeHtml(x.listening.length)+' challenge</h3><button class="primary" onclick="speak(\''+jsStr(x.listening.script)+'\')">▶ Play</button><textarea id="todayDict" placeholder="Type what you heard..."></textarea><button onclick="checkListening(\'todayDict\',\'todayRes\')">Check</button><div id="todayRes" class="answerBox"></div></section></div><section class="card"><button class="primary" onclick="finishDay()">完成今天，进入下一天</button></section>';}
 function renderDrive(){var x=cur();document.getElementById('main').innerHTML=topHtml('Drive Mode','通勤模式：把当天 Vocabulary / Meeting / Presentation / Small Talk / Strategy / Listening 串成一段播客。',false)+'<section class="card"><div class="drive"><div class="bigicon">🚗🎧</div><h3>Day '+x.day+' Commute Audio</h3><button class="driveBtn" onclick="speak(\''+jsStr(x.driveScript)+'\',selectedRate)">Play</button><button class="driveBtn" onclick="speak(\''+jsStr(x.driveScript)+'\',0.68)">Slow</button><button class="driveBtn" onclick="speak(\''+jsStr(x.driveScript)+'\',0.58)">Shadowing</button><button onclick="stopSpeak()">Stop</button></div>'+voicePanel()+'</section><section class="card"><h3>Script</h3><div class="sentence">'+escapeHtml(x.driveScript)+'</div></section>';}
 function renderVocab(){var all=[];DAYS.forEach(function(x){all=all.concat(x.workVocab)});document.getElementById('main').innerHTML=topHtml('Vocabulary','每天5个核心工作词，180天共900个左右。',false)+'<section class="card"><input class="searchbar" id="search" placeholder="Search..." oninput="filterList(\'work\')"><div id="listWrap">'+vocabCards(all,'Work')+'</div></section>';}
 function renderMeeting(){var x=cur();document.getElementById('main').innerHTML=topHtml('Meeting English','每天5个会议表达，重点是听得懂、接得上。',false)+'<section class="card">'+sentenceList(x.meeting,'Meeting')+'</section>';}
 function renderPresentation(){var x=cur();document.getElementById('main').innerHTML=topHtml('Presentation English','每天练一个真实工作问题，保留 Good / Better / Natural 三档答案。',false)+'<section class="card"><h3>'+escapeHtml(x.presentation.question)+'</h3><textarea placeholder="Write your answer first..."></textarea><div class="actions"><button onclick="document.getElementById(\'presAns\').classList.toggle(\'hidden\')">Show answers</button><button onclick="speak(\''+jsStr(x.presentation.natural)+'\')">🔊 Natural</button></div><div id="presAns" class="answerBox hidden"><b>Good:</b> '+escapeHtml(x.presentation.good)+'<br><br><b>Better:</b> '+escapeHtml(x.presentation.better)+'<br><br><b>Natural:</b> '+escapeHtml(x.presentation.natural)+'</div></section>';}
 function renderSmallTalk(){var x=cur();document.getElementById('main').innerHTML=topHtml('Boss Small Talk','每天5个Small Talk词 + 3个老板聊天问答。',false)+'<section class="card"><h3>Small Talk Vocabulary</h3>'+vocabCards(x.smallTalk.vocab,'Small Talk')+'</section><section class="card"><h3>Today Q&A</h3>'+sentenceList(x.smallTalk.qas.map(function(q){return q.q+' — '+q.a;}),'Small Talk')+'</section>';}
-function renderStrategy(){var x=cur();document.getElementById('main').innerHTML=topHtml('Strategy Academy','每天5个Strategy专业词 + 1个知识点 + 3个专业表达。',false)+'<section class="card"><h3>Strategy Vocabulary</h3>'+vocabCards(x.strategy.vocab,'Strategy')+'</section><section class="card"><h3>'+escapeHtml(x.strategy.knowledge.title)+'</h3><div class="sentence">'+escapeHtml(x.strategy.knowledge.text)+'<div class="actions"><button onclick="speak(\''+jsStr(x.strategy.knowledge.text)+'\')">🔊</button></div></div><h3>Expressions</h3>'+sentenceList(x.strategy.expressions,'Strategy')+'</section>';}
+function renderStrategy(){var x=cur();document.getElementById('main').innerHTML=topHtml('Strategy Academy','每天5个Strategy专业词 + 1个知识点 + 3个专业表达。',false)+'<section class="card"><h3>Strategy Vocabulary</h3>'+vocabCards(x.strategy.vocab,'Strategy')+'</section><section class="card"><h3>'+escapeHtml(x.strategy.knowledge.title)+'</h3><div class="sentence">'+wrapClickableWords(x.strategy.knowledge.text)+'<div class="actions"><button onclick="speak(\''+jsStr(x.strategy.knowledge.text)+'\')">🔊</button></div></div><h3>Expressions</h3>'+sentenceList(x.strategy.expressions,'Strategy')+'</section>';}
 function renderListen(){var x=cur();document.getElementById('main').innerHTML=topHtml('Listening Challenge','听写当天工作语境内容。Day 1-60短，Day 61-120中，Day 121-180更长。',false)+'<section class="card"><h3>'+escapeHtml(x.listening.length)+' challenge</h3><button class="primary" onclick="speak(\''+jsStr(x.listening.script)+'\')">▶ Play</button><button onclick="speak(\''+jsStr(x.listening.script)+'\',0.68)">Slow</button><textarea id="dict" placeholder="Type what you heard..."></textarea><div class="actions"><button onclick="checkListening(\'dict\',\'res\')">Check</button></div><div id="res" class="answerBox"></div></section>';}
 function renderReview(){var h=topHtml('Review','你标记不会的内容会出现在这里。',false)+'<section class="card">';if(!review.length)h+='<div class="empty">暂无复习内容。</div>';else review.forEach(function(k){h+='<div class="sentence">'+escapeHtml(k)+'<div class="actions"><button onclick="toggleReview(\''+jsStr(k)+'\')">移出</button></div></div>';});h+='</section>';document.getElementById('main').innerHTML=h;}
 function renderFav(){var h=topHtml('Favorites','开会前快速复习收藏内容。',false)+'<section class="card">';if(!fav.length)h+='<div class="empty">暂无收藏内容。</div>';else fav.forEach(function(k){h+='<div class="sentence">'+escapeHtml(k)+'<div class="actions"><button onclick="toggleFav(\''+jsStr(k)+'\')">移出</button></div></div>';});h+='</section>';document.getElementById('main').innerHTML=h;}
-function renderDashboard(){var avg=scoreN?Math.round(scoreSum/scoreN):0;var comp=Math.round(done.length/180*100);document.getElementById('main').innerHTML=topHtml('Dashboard','学习进度、听力分数和连续学习。',false)+'<section class="card"><div class="dashboard"><div class="metric"><b>'+done.length+'</b><br>Completed<div class="levelbar"><span style="width:'+comp+'%"></span></div></div><div class="metric"><b>'+streak+'</b><br>Streak<div class="levelbar"><span style="width:'+Math.min(streak,30)/30*100+'%"></span></div></div><div class="metric"><b>'+avg+'%</b><br>Listening<div class="levelbar"><span style="width:'+avg+'%"></span></div></div><div class="metric"><b>'+fav.length+'</b><br>Favorites<div class="levelbar"><span style="width:'+Math.min(fav.length,50)/50*100+'%"></span></div></div></div></section>';}
+function renderDashboard(){var avg=scoreN?Math.round(scoreSum/scoreN):0;var comp=Math.round(done.length/180*100);document.getElementById('main').innerHTML=topHtml('Dashboard','学习进度、听力分数和连续学习。',false)+'<section class="card"><div class="dashboard"><div class="metric"><b>'+done.length+'</b><br>Completed<div class="levelbar"><span style="width:'+comp+'%"></span></div></div><div class="metric"><b>'+streak+'</b><br>Streak<div class="levelbar"><span style="width:'+Math.min(streak,30)/30*100+'%"></span></div></div><div class="metric"><b>'+avg+'%</b><br>Listening<div class="levelbar"><span style="width:'+avg+'%"></span></div></div><div class="metric"><b>'+fav.length+'</b><br>Favorites<div class="levelbar"><span style="width:'+Math.min(fav.length,50)/50*100+'%"></span></div></div></div></section><section class="card"><h3>My Dictionary</h3><div class="dashboard"><div class="metric"><b>'+PERSONAL_DICT.length+'</b><br>Total words</div><div class="metric"><b>'+PERSONAL_DICT.filter(function(x){return x.category==='Meeting'}).length+'</b><br>Meeting</div><div class="metric"><b>'+PERSONAL_DICT.filter(function(x){return x.category==='Retail Design'}).length+'</b><br>Retail Design</div><div class="metric"><b>'+PERSONAL_DICT.filter(function(x){return x.category==='Strategy'}).length+'</b><br>Strategy</div></div></section>';}
 function checkListening(inputId,resultId){var x=cur();var val=document.getElementById(inputId).value.toLowerCase().replace(/[^a-z ]/g,'').split(/\s+/);var b=x.listening.script.toLowerCase().replace(/[^a-z ]/g,'').split(/\s+/);var hit=0;b.forEach(function(w){if(val.indexOf(w)>=0)hit++;});var sc=Math.round(hit/b.length*100);scoreSum+=sc;scoreN++;save();document.getElementById(resultId).innerHTML='<b>Score: '+sc+'%</b><br><br><b>Answer:</b><br>'+escapeHtml(x.listening.script);renderStats();}
 function filterList(type){var kw=document.getElementById('search').value.toLowerCase();var all=[];DAYS.forEach(function(x){x.workVocab.forEach(function(v){if(v.word.toLowerCase().includes(kw)||v.cn.includes(kw)||v.example.toLowerCase().includes(kw))all.push(v);})});document.getElementById('listWrap').innerHTML=vocabCards(all,'Work');}
 function finishDay(){if(done.indexOf(day)<0)done.push(day);streak++;if(day<180)day++;save();render();}
-function renderStats(){document.getElementById('stats').innerHTML='<b>Progress</b><br>Day: '+day+' / 180<br>Completed: '+done.length+'<br>Streak: 🔥 '+streak+'<br>Review: '+review.length+'<br>Favorites: '+fav.length+'<br><br><b>Voice</b><br>'+escapeHtml(selectedVoiceName||'Default')+'<br>Speed: '+selectedRate;}
-function render(){try{if(view==='today')renderToday();if(view==='drive')renderDrive();if(view==='vocab')renderVocab();if(view==='meeting')renderMeeting();if(view==='presentation')renderPresentation();if(view==='smalltalk')renderSmallTalk();if(view==='strategy')renderStrategy();if(view==='listen')renderListen();if(view==='review')renderReview();if(view==='fav')renderFav();if(view==='dashboard')renderDashboard();renderStats();}catch(e){document.getElementById('main').innerHTML='<section class="card"><h2>Error</h2><p>'+escapeHtml(e.message)+'</p></section>';console.error(e);}}
+function renderStats(){document.getElementById('stats').innerHTML='<b>Progress</b><br>Day: '+day+' / 180<br>Completed: '+done.length+'<br>Streak: 🔥 '+streak+'<br>Review: '+review.length+'<br>Favorites: '+fav.length+'<br>Dictionary: '+PERSONAL_DICT.length+'<br><br><b>Voice</b><br>'+escapeHtml(selectedVoiceName||'Default')+'<br>Speed: '+selectedRate;}
+function render(){try{if(view==='today')renderToday();if(view==='drive')renderDrive();if(view==='vocab')renderVocab();if(view==='meeting')renderMeeting();if(view==='presentation')renderPresentation();if(view==='smalltalk')renderSmallTalk();if(view==='strategy')renderStrategy();if(view==='listen')renderListen();if(view==='review')renderReview();if(view==='fav')renderFav();if(view==='dashboard')renderDashboard();if(view==='dictionary')renderDictionary();renderStats();}catch(e){document.getElementById('main').innerHTML='<section class="card"><h2>Error</h2><p>'+escapeHtml(e.message)+'</p></section>';console.error(e);}}
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('service-worker.js');});}
 render();
 </script>

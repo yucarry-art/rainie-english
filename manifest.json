@@ -1,11 +1,11 @@
 {
-  "name": "Rainie's Retail English Coach V4",
-  "short_name": "Retail Coach V4",
+  "name": "Rainie's Personal English System V5",
+  "short_name": "RPES V5",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f6f4ef",
   "theme_color": "#0f4f43",
-  "description": "180-day modular retail English coach for Rainie.",
+  "description": "Rainie's offline personal English system with 180-day course and personal dictionary.",
   "icons": [
     {
       "src": "icon-192.png",
