@@ -1,11 +1,11 @@
 {
-  "name": "Rainie's Personal English System V5",
-  "short_name": "RPES V5",
+  "name": "Rainie's Personal English System V5.4 Stable",
+  "short_name": "RPES V5.4",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f6f4ef",
   "theme_color": "#0f4f43",
-  "description": "Rainie's offline personal English system with 180-day course and personal dictionary.",
+  "description": "Offline personal English system with dictionary, review engine and drive review.",
   "icons": [
     {
       "src": "icon-192.png",
