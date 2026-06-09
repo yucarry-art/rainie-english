@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rainie's Personal English System V6.0 Audio Alpha Mobile Fix</title>
+<title>Rainie's Personal English System V6.0 Audio Alpha Fix 2</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f4f43">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -77,7 +77,7 @@ h1{font-size:23px}
 </style>
 </head>
 <body>
-<header><h1>Rainie's Personal English System V6.0 Audio Alpha Mobile Fix</h1><div class="sub">180天课程 + Personal Dictionary · 点击任意单词收藏 · 离线免费 · Drive Mode 保留。</div></header>
+<header><h1>Rainie's Personal English System V6.0 Audio Alpha Fix 2</h1><div class="sub">180天课程 + Personal Dictionary · 点击任意单词收藏 · 离线免费 · Drive Mode 保留。</div></header>
 <div class="app">
 <aside>
 <button class="tab active" onclick="setView('today',this)">Today</button>
@@ -320,13 +320,32 @@ function audioSrc(dayNum){
   return './audio/day'+String(dayNum).padStart(3,'0')+'.mp3';
 }
 function renderAudioCenter(){
-  var h=topHtml('Audio Center','V6.0 Alpha：先测试 Day 1-7 MP3 锁屏播放。确认 iPhone / AirPods / 车载蓝牙稳定后，再扩展到180天。',false);
-  h+='<section class="card"><div class="audioNotice"><b>使用方法：</b><br>1. 点击某一天的播放器播放。<br>2. iPhone 上按电源键锁屏。<br>3. 看是否继续播放、是否能在锁屏界面控制。<br><br><b>注意：</b>这版音频是 Alpha 测试音频，声音可能没有最终版自然，主要用于验证锁屏播放。</div>';
+  var h = topHtml("Audio Center","V6.0 Alpha：先测试 Day 1-7 MP3 锁屏播放。确认 iPhone / AirPods / 车载蓝牙稳定后，再扩展到180天。",false);
+  h += '<section class="card">';
+  h += '<div class="audioNotice"><b>使用方法：</b><br>1. 点击某一天的播放器播放。<br>2. iPhone 上按电源键锁屏。<br>3. 看是否继续播放、是否能在锁屏界面控制。<br><br><b>注意：</b>这版音频是 Alpha 测试音频，声音可能没有最终版自然，主要用于验证锁屏播放。</div>';
   for(var i=1;i<=7;i++){
-    h+='<div class="audioCard"><span class="audioBadge">Day '+i+'</span><h3>Drive Audio · Day '+i+'</h3><p class="muted">Vocabulary + Meeting + Small Talk + Strategy Academy</p><audio controls preload="metadata" playsinline src="'+audioSrc(i)+'"></audio><div class="actions"><button onclick="document.querySelectorAll(\\'audio\\').forEach(function(a){a.pause()});var a=this.closest(\\'.audioCard\\').querySelector(\\'audio\\');a.play();">▶ Play</button><button onclick="this.closest(\\'.audioCard\\').querySelector(\\'audio\\').pause();">Pause</button></div></div>';
+    var src = audioSrc(i);
+    h += '<div class="audioCard">';
+    h += '<span class="audioBadge">Day '+i+'</span>';
+    h += '<h3>Drive Audio · Day '+i+'</h3>';
+    h += '<p class="muted">Vocabulary + Meeting + Small Talk + Strategy Academy</p>';
+    h += '<audio controls preload="metadata" playsinline src="'+src+'"></audio>';
+    h += '<div class="actions">';
+    h += '<button onclick="playAudioCard(this)">▶ Play</button>';
+    h += '<button onclick="pauseAudioCard(this)">Pause</button>';
+    h += '</div></div>';
   }
-  h+='</section>';
-  document.getElementById('main').innerHTML=h;
+  h += '</section>';
+  document.getElementById("main").innerHTML = h;
+}
+function playAudioCard(btn){
+  document.querySelectorAll("audio").forEach(function(a){a.pause();});
+  var a = btn.closest(".audioCard").querySelector("audio");
+  if(a){a.play();}
+}
+function pauseAudioCard(btn){
+  var a = btn.closest(".audioCard").querySelector("audio");
+  if(a){a.pause();}
 }
 
 function render(){try{if(view==='today')renderToday();if(view==='drive')renderDrive();if(view==='drivereview')renderDriveReview();if(view==='audiocenter')renderAudioCenter();if(view==='vocab')renderVocab();if(view==='meeting')renderMeeting();if(view==='presentation')renderPresentation();if(view==='smalltalk')renderSmallTalk();if(view==='strategy')renderStrategy();if(view==='listen')renderListen();if(view==='review')renderReviewEngine();if(view==='fav')renderFav();if(view==='dashboard')renderDashboard();if(view==='dictionary')renderDictionary();renderStats();}catch(e){document.getElementById('main').innerHTML='<section class="card"><h2>Error</h2><p>'+escapeHtml(e.message)+'</p></section>';console.error(e);}}
