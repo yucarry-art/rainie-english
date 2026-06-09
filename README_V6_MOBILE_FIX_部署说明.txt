@@ -1,22 +1,11 @@
-Rainie's Personal English System V6.0 Audio Alpha
+V6.0 Audio Alpha Mobile Fix
 
-本版目标：
-- 增加 Audio Center
-- 新增 Day 1-7 MP3 音频
-- 测试 iPhone 锁屏播放 / AirPods / 车载蓝牙
-- 保留 V5.4 全部功能
-
-重要说明：
-- 这是 Alpha 测试版，先不要生成180天全部音频。
-- 这版音频用离线TTS生成，声音用于测试锁屏播放，不代表最终音质。
-- 如果iPhone锁屏播放稳定，再扩展 Day 1-180，并优化声音。
+修复：
+1. 手机底部导航从4列大网格改为横向滑动条。
+2. 底部导航高度从最多180px降到约74px。
+3. 页面底部增加留白，避免“完成今天，进入下一天”按钮被遮挡。
+4. 支持 iPhone safe-area 底部安全区。
 
 部署：
-1. 解压 zip
-2. 上传覆盖 GitHub 仓库全部文件，特别是新增 audio 文件夹
-3. Commit directly to main
-4. 等 1-3 分钟
-5. 电脑 Ctrl+F5 强刷；手机删除旧桌面图标后重新添加
-6. 打开 Audio Center，播放 Day 1，锁屏测试
-
-音频是否生成成功：True
+上传覆盖全部文件，特别是 index.html / manifest.json / service-worker.js / audio 文件夹。
+部署后手机删除旧桌面图标并重新添加，或清理 Safari 网站数据。
